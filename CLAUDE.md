@@ -5,6 +5,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 This is a manga/comic viewer web application that loads and displays images from a CDN with special image processing to handle sliced/obfuscated images. The application includes a floating menu, drawer interface, and supports downloading manga as ZIP files.
 
+## Commands
+
+### Development Commands
+```bash
+# Run the application
+open index.html
+
+# Test image processing
+# Open index.html in browser with ?id=<mangaId> query parameter
+# Example: http://localhost:8080/index.html?id=123456
+
+# Python analysis tools
+python TestPicture/deobfuscate.py                    # Basic deobfuscation
+python TestPicture/deobfuscate_correct.py           # Corrected version
+python TestPicture/deobfuscate_full.py              # Full deobfuscation
+python TestPicture/full_deobfuscate.py               # Complete analysis
+
+# Git operations
+git status                                           # Check repository status
+git add .                                            # Stage all changes
+git commit -m "message"                             # Commit changes
+```
+
 ## Architecture & Structure
 
 ### Main Components
@@ -20,6 +43,11 @@ This is a manga/comic viewer web application that loads and displays images from
   - Uses MD5 hashing to determine slicing parameters
   - Processes images by slicing and rearranging them
   - Works with canvas elements for image manipulation
+
+- **decoded_image_handler.js**: Extracted image processing functions:
+  - `scramble_image_for_new()`: Main image processing entry point
+  - `onImageLoadedForNew()`: Handles image after load completion
+  - `get_num()`: Calculates slice count using MD5 hashing
 
 - **Python scripts** (deobfuscate.py, deobfuscate_correct.py, etc.): Tools for analyzing and deobfuscating JavaScript code, not part of the main application runtime
 
@@ -44,13 +72,6 @@ The application processes images by:
 - Python scripts are for analysis, not runtime dependencies
 - Images are loaded from CDN: `https://cdn-msp.jm18c-uoe.cc/media/photos/{mangaId}/{pageId}.webp`
 
-### Common Tasks
-- **Run the application**: Open index.html in a web browser
-- **Test image processing**: Load a manga with query parameter `?id=<mangaId>`
-- **Analyze deobfuscated code**: Use the Python deobfuscation scripts
-- **Modify image processing**: Edit jquery.photo-0.6-deobfuscated.js
-- **Update UI**: Modify index.html CSS and JavaScript
-
 ### Important Notes
 - The application uses a maximum of 100 pages per manga by default
 - Image processing relies on specific CDN image format and structure
@@ -58,7 +79,20 @@ The application processes images by:
 - Error handling includes retry mechanisms for failed image loads
 - iOS/Safari specific download handling is implemented for ZIP files
 
+## API Integration
+
+The application interfaces with JMComic (禁漫天堂) APIs:
+- See `apis.md` for detailed API documentation
+- APIs require authentication with time-based tokens
+- Images use CDN endpoints with specific headers
+- Decryption is handled client-side for scrambled images
+
 <!-- SPECKIT START -->
-For additional context about technologies to be used, project structure,
-shell commands, and other important information, read the current plan
+Implementation plan for Vue漫画查看器重构:
+- Feature specification: specs/001-vue-manga-refactor/spec.md
+- Implementation plan: specs/001-vue-manga-refactor/plan.md
+- Research findings: specs/001-vue-manga-refactor/research.md
+- Data model: specs/001-vue-manga-refactor/data-model.md
+- API contracts: specs/001-vue-manga-refactor/contracts/
+- Quick start guide: specs/001-vue-manga-refactor/quickstart.md
 <!-- SPECKIT END -->

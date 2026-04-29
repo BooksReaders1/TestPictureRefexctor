@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell *)",
+      "Bash(git checkout *)",
+      "Bash(.specify/scripts/powershell/check-prerequisites.ps1 *)",
+      "Bash(/speckit-git-commit)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(npm list *)",
+      "Bash(npm install *)",
+      "Bash(speckit *)",
+      "Bash(npm uninstall *)",
+      "Bash(.claude\\\\skills\\\\speckit-git-commit\\\\bin\\\\run.sh)",
+      "Bash(.claude/skills/speckit-tasks/scripts/powershell/check-prerequisites.ps1 *)"
+    ]
+  }
+}
