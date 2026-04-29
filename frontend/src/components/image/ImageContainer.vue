@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, toRefs } from 'vue';
+import { ref, onMounted } from 'vue';
 import type { Image } from '@/types';
 import { useImageProcessor } from '@/composables/useImageProcessor';
 
@@ -50,11 +50,11 @@ interface Emits {
   (e: 'page-change', page: number): void;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   currentPage: 1
 });
 
-defineEmits<Emits>();
+const emit = defineEmits<Emits>();
 
 const imageWrappers = ref<HTMLElement[]>([]);
 const loadingCount = ref(0);
@@ -82,9 +82,9 @@ const handleImageLoad = async (image: Image, index: number) => {
   }
 
   // Emit page change if current page image loaded
-  if (index + 1 === (image.url.match(/pageId=/g) || [])[0]?.length || index === currentPage - 1) {
+  if (index + 1 === (image.url.match(/pageId=/g) || [])[0]?.length || index === props.currentPage - 1) {
     // Simple page change detection
-    if (index + 1 === currentPage) {
+    if (index + 1 === props.currentPage) {
       emit('page-change', index + 1);
     }
   }
@@ -97,15 +97,15 @@ const handleImageError = (image: Image, index: number) => {
 
 // Load current page and preload surrounding pages
 onMounted(() => {
-  if (images.length === 0) return;
+  if (props.images.length === 0) return;
 
   // Load current page image
-  loadImageWithRetry(images[currentPage - 1]).catch(err => {
+  loadImageWithRetry(props.images[props.currentPage - 1]).catch(err => {
     console.error('Failed to load current page:', err);
   });
 
   // Preload surrounding pages
-  preloadImages(images, currentPage - 1);
+  preloadImages(props.images, props.currentPage - 1);
 });
 </script>
 

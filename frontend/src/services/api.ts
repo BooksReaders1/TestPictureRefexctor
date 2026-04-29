@@ -19,7 +19,7 @@ class APIService {
     this.token = this.generateToken();
 
     // Build headers
-    const headers: APIHeaders = {
+    const headers: HeadersInit = {
       'Content-Type': 'application/json',
       'User-Agent': 'Vue-Manga-Viewer/1.0.0',
       'X-API-Token': this.token.token,

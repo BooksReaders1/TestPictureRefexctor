@@ -33,11 +33,11 @@ const error = ref<Error | null>(null);
 const hasError = ref(false);
 const router = useRouter();
 
-const handleError = (error: Error) => {
-  console.error('ErrorBoundary caught an error:', error);
-  error.value = error;
+const handleError = (err: Error) => {
+  console.error('ErrorBoundary caught an error:', err);
+  error.value = err;
   hasError.value = true;
-  emit('error', error);
+  emit('error', err);
 };
 
 const retry = () => {
@@ -51,24 +51,15 @@ const goHome = () => {
 };
 
 // Global error handler
-onMounted(() => {
-  if (typeof window !== 'undefined') {
-    window.addEventListener('error', (event) => {
-      handleError(event.error as Error);
-    });
+if (typeof window !== 'undefined') {
+  window.addEventListener('error', (event) => {
+    handleError(event.error as Error);
+  });
 
-    window.addEventListener('unhandledrejection', (event) => {
-      handleError(event.reason as Error);
-    });
-  }
-});
-
-onUnmounted(() => {
-  if (typeof window !== 'undefined') {
-    window.removeEventListener('error', () => {});
-    window.removeEventListener('unhandledrejection', () => {});
-  }
-});
+  window.addEventListener('unhandledrejection', (event) => {
+    handleError(event.reason as Error);
+  });
+}
 </script>
 
 <style scoped>

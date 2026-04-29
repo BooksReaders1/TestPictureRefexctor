@@ -1,8 +1,8 @@
 // Image processing composable
 import { ref } from 'vue';
 import type { Image } from '@/types';
-import { getCache, setCache } from '@/utils/cache';
-import { handleError } from '@/utils/errorHandler';
+import { getCache, setCache } from '../utils/cache';
+import { handleError } from '../utils/errorHandler';
 
 interface ImageProcessorOptions {
   concurrency?: number;

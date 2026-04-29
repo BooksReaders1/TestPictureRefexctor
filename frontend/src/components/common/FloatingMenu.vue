@@ -81,7 +81,9 @@ const toggleMenu = () => {
 const handleMenuClick = (item: string) => {
   switch (item) {
     case 'download':
-      emit('download', currentChapter.value);
+      if (currentChapter.value) {
+        emit('download', currentChapter.value);
+      }
       break;
     case 'settings':
       console.log('Settings clicked');

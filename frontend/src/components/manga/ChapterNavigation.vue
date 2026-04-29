@@ -63,11 +63,20 @@ interface Emits {
 
 const emit = defineEmits<Emits>();
 
+const props = defineProps<Props>();
+const emit = defineEmits<Emits>();
+
+const { currentPage, totalPages } = toRefs(props.pageInfo || { currentPage: 1, totalPages: 0 });
+const direction = ref(props.direction || 'chapter');
+
 const handleKeyDown = (event: KeyboardEvent) => {
+  const currentVal = currentPage.value || 1;
+  const totalVal = totalPages.value || 1;
+
   switch (event.key) {
     case 'ArrowLeft':
     case 'ArrowUp':
-      if (direction.value === 'page' && currentPage.value > 1) {
+      if (direction.value === 'page' && currentVal > 1) {
         emit('prev-chapter');
       }
       break;
@@ -75,19 +84,19 @@ const handleKeyDown = (event: KeyboardEvent) => {
     case 'ArrowDown':
       if (direction.value === 'chapter') {
         emit('next-chapter');
-      } else if (currentPage.value < totalPages.value) {
+      } else if (currentVal < totalVal) {
         emit('next-chapter');
       }
       break;
     case 'ArrowHome':
-      if (direction.value === 'page' && currentPage.value > 1) {
+      if (direction.value === 'page' && currentVal > 1) {
         emit('prev-chapter');
       }
       break;
     case 'ArrowEnd':
       if (direction.value === 'chapter') {
         emit('next-chapter');
-      } else if (currentPage.value < totalPages.value) {
+      } else if (currentVal < totalVal) {
         emit('next-chapter');
       }
       break;

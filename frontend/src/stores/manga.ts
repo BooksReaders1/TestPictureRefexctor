@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import type { Manga, Chapter, AppState } from '@/types';
+import apiService from '@/services/api';
 
 export const useMangaStore = defineStore('manga', () => {
   const manga = ref<Manga | null>(null);
@@ -32,6 +33,28 @@ export const useMangaStore = defineStore('manga', () => {
     loadingProgress.value = progress;
   };
 
+  const fetchManga = async (id: string): Promise<Manga> => {
+    setLoading(true);
+    setError(null);
+    try {
+      return await apiService.fetchManga(id);
+    } catch (err) {
+      setError(String(err));
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchChapters = async (mangaId: string): Promise<Chapter[]> => {
+    try {
+      return await apiService.fetchChapters(mangaId);
+    } catch (err) {
+      setError(String(err));
+      throw err;
+    }
+  };
+
   const resetMangaStore = () => {
     manga.value = null;
     chapters.value = [];
@@ -55,6 +78,8 @@ export const useMangaStore = defineStore('manga', () => {
     setLoading,
     setError,
     setLoadingProgress,
-    resetMangaStore
+    resetMangaStore,
+    fetchManga,
+    fetchChapters
   };
 });

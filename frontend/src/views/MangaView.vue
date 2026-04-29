@@ -43,6 +43,7 @@
               :current-chapter="currentChapter"
               :chapters="chapters"
               :manga-id="mangaId"
+              direction="chapter"
               @prev-chapter="goToPrevChapter"
               @next-chapter="goToNextChapter"
               @chapter-select="selectChapter"
@@ -85,6 +86,7 @@
               direction="chapter"
               @prev-chapter="goToPrevChapter"
               @next-chapter="goToNextChapter"
+              :page-info="undefined"
             />
           </div>
 
@@ -202,6 +204,7 @@ const loadManga = async (id: string) => {
 };
 
 const selectChapter = (chapter: any) => {
+  if (!chapter) return;
   mangaStore.setCurrentChapter(chapter);
   currentChapter.value = chapter;
   currentPage.value = 1;
@@ -212,7 +215,7 @@ const goToPrevChapter = () => {
   if (!currentChapter.value || !chapters.value.length) return;
 
   const currentIndex = chapters.value.findIndex(
-    c => c.id === currentChapter.value.id
+    c => c.id === currentChapter.value!.id
   );
 
   if (currentIndex > 0) {
@@ -224,7 +227,7 @@ const goToNextChapter = () => {
   if (!currentChapter.value || !chapters.value.length) return;
 
   const currentIndex = chapters.value.findIndex(
-    c => c.id === currentChapter.value.id
+    c => c.id === currentChapter.value!.id
   );
 
   if (currentIndex < chapters.value.length - 1) {

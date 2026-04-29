@@ -112,7 +112,8 @@ export function storeProcessedImage(
 ): void {
   const cacheKey = `processed_${chapterId}_${pageIndex}`;
   setCache(cacheKey, {
-    ...result,
+    canvas: result.canvas,
+    sliceCount: result.sliceCount,
     processedAt: Date.now()
   });
 }

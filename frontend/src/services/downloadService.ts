@@ -36,7 +36,7 @@ class DownloadService {
           this.notifyProgress(progress);
         }
       )
-        .then((downloadedFiles) => {
+        .then(() => {
           // Generate ZIP file
           zip.generateAsync({ type: 'blob' })
             .then((blob) => {
