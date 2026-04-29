@@ -16,7 +16,11 @@
       "Bash(git commit *)",
       "Bash(mkdir -p frontend)",
       "Bash(npm init *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(npm test *)",
+      "Bash(cd /d)",
+      "Bash(mv TestPicture TestPictureRefactor)",
+      "Read(//d//**)"
     ]
   }
 }

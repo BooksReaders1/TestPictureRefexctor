@@ -3,24 +3,20 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-This is a manga/comic viewer web application that loads and displays images from a CDN with special image processing to handle sliced/obfuscated images. The application includes a floating menu, drawer interface, and supports downloading manga as ZIP files.
+TestPictureRefactor is a Vue 3 + TypeScript refactor of the original manga/comic viewer web application. It loads and displays images from a CDN with special image processing to handle sliced/obfuscated images. The application includes a floating menu, drawer interface, and supports downloading manga as ZIP files.
 
 ## Commands
 
 ### Development Commands
 ```bash
 # Run the application
-open index.html
+cd frontend
+npm run dev                                          # Start dev server
+npm run build                                        # Build for production
 
 # Test image processing
-# Open index.html in browser with ?id=<mangaId> query parameter
-# Example: http://localhost:8080/index.html?id=123456
-
-# Python analysis tools
-python TestPicture/deobfuscate.py                    # Basic deobfuscation
-python TestPicture/deobfuscate_correct.py           # Corrected version
-python TestPicture/deobfuscate_full.py              # Full deobfuscation
-python TestPicture/full_deobfuscate.py               # Complete analysis
+# Open http://localhost:5173 with ?id=<mangaId> query parameter
+# Example: http://localhost:5173?id=123456
 
 # Git operations
 git status                                           # Check repository status
@@ -31,33 +27,25 @@ git commit -m "message"                             # Commit changes
 ## Architecture & Structure
 
 ### Main Components
-- **index.html**: Main HTML file containing the manga viewer interface, including:
-  - Lazy loading and pagination system
-  - Floating menu with drawer interface
-  - Image processing logic using canvas
-  - Download functionality for creating ZIP archives
-  - MD5-based image processing parameters
-
-- **jquery.photo-0.6-deobfuscated.js**: Deobfuscated jQuery plugin for image processing that:
-  - Handles image scrambling/deobfuscation
-  - Uses MD5 hashing to determine slicing parameters
-  - Processes images by slicing and rearranging them
-  - Works with canvas elements for image manipulation
-
-- **decoded_image_handler.js**: Extracted image processing functions:
-  - `scramble_image_for_new()`: Main image processing entry point
-  - `onImageLoadedForNew()`: Handles image after load completion
-  - `get_num()`: Calculates slice count using MD5 hashing
-
-- **Python scripts** (deobfuscate.py, deobfuscate_correct.py, etc.): Tools for analyzing and deobfuscating JavaScript code, not part of the main application runtime
+- **frontend/index.html**: Main HTML file with Vue app mount point
+- **frontend/src/**: Vue 3 + TypeScript source code
+  - `App.vue`: Root component
+  - `main.ts`: Application entry point
+  - `components/`: Vue components (manga viewer, floating menu, etc.)
+  - `stores/`: Pinia state management
+  - `router/`: Vue Router configuration
+  - `services/`: API service layer
+  - `utils/`: Utility functions for image processing, MD5, etc.
 
 ### Key Technologies
-- Plain HTML, CSS, and JavaScript (no framework)
-- jQuery for DOM manipulation
+- Vue 3 with Composition API
+- TypeScript for type safety
+- Vite as build tool
+- Pinia for state management
+- Vue Router for navigation
 - Canvas API for image processing
 - MD5 hashing for parameter generation
 - JSZip library for ZIP file creation
-- CDN-hosted libraries (jQuery, MD5, JSZip)
 
 ### Image Processing Logic
 The application processes images by:
@@ -67,9 +55,11 @@ The application processes images by:
 4. Implementing lazy loading with concurrent requests
 
 ### Development Workflow
-- No build system or package manager (uses CDN libraries)
-- Direct file editing and testing in browser
-- Python scripts are for analysis, not runtime dependencies
+- Use npm/yarn for dependency management
+- Vite development server for hot reload
+- TypeScript compilation for type safety
+- Vue components for modular UI
+- Pinia store for state management
 - Images are loaded from CDN: `https://cdn-msp.jm18c-uoe.cc/media/photos/{mangaId}/{pageId}.webp`
 
 ### Important Notes

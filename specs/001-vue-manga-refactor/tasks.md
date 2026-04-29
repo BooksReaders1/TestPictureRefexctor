@@ -35,7 +35,7 @@
 - [X] T011 在 frontend/src/App.vue 中创建根组件
 - [X] T012 在 frontend/index.html 中创建入口 HTML
 - [X] T013 在 frontend/package.json 中创建包含依赖的 package.json
-- [ ] T014 在 frontend/README.md 中创建文档
+- [X] T014 在 frontend/README.md 中创建文档
 
 ---
 
@@ -186,9 +186,9 @@
 - [X] T079 为所有异步操作添加加载状态
 - [X] T080 在 frontend/src/App.vue 中添加组件级错误边界
 - [X] T081 在 frontend/src/router/index.ts 中实现路由守卫和认证
-- [ ] T082 [P] 在 frontend/tests/unit/ 中添加工具函数的单元测试
-- [ ] T083 [P] 在 frontend/tests/unit/ 中添加组合式函数的单元测试
-- [ ] T084 在 frontend/tests/components/ 中添加关键组件的组件测试
+- [X] T082 [P] 在 frontend/tests/unit/ 中添加工具函数的单元测试
+- [X] T083 [P] 在 frontend/tests/unit/ 中添加组合式函数的单元测试
+- [X] T084 在 frontend/tests/components/ 中添加关键组件的组件测试
 - [X] T085 运行 quickstart.md 验证检查清单
 - [X] T086 在 frontend/ 中构建生产版本并测试
 

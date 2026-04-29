@@ -77,6 +77,25 @@ export function showToast(
   }, duration);
 }
 
+// Helper functions for convenience
+export function showToastSuccess(message: string) {
+  showToast(message || '操作成功', 'success');
+}
+
+export function showToastError(message: string) {
+  showToast(message || '操作失败', 'error');
+}
+
+export function showToastWarning(message: string) {
+  showToast(message || '警告信息', 'warning');
+}
+
+export function clearToast() {
+  if (toastContainer && toastContainer.children.length > 0) {
+    toastContainer.innerHTML = '';
+  }
+}
+
 // Add CSS keyframes dynamically
 if (typeof document !== 'undefined') {
   const style = document.createElement('style');

@@ -1,5 +1,5 @@
 {
-  "name": "vue-manga-viewer",
+  "name": "TestPictureRefactor",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -7,7 +7,9 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "test": "vitest",
+    "test:run": "vitest run"
   },
   "keywords": [
     "vue",
@@ -39,8 +41,13 @@
   "devDependencies": {
     "@types/jszip": "^3.4.0",
     "@vitejs/plugin-vue": "^6.0.6",
+    "@vitest/coverage-v8": "^4.1.5",
+    "@vitest/ui": "^4.1.5",
+    "@vue/test-utils": "^2.4.9",
+    "jsdom": "^29.1.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.10",
+    "vitest": "^4.1.5",
     "vue-tsc": "^2.2.12"
   }
 }
