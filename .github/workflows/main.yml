@@ -2,7 +2,7 @@ name: Deploy Vue App to GitHub Pages
 
 on:
   push:
-    branches: [001-vue-manga-refactor]  # ✅ 与目标分支一致
+    branches: [dev]  # ✅ 与目标分支一致
   workflow_dispatch:
 
 permissions:
