@@ -1,0 +1,132 @@
+# Vite 部署配置文件
+# 此文件定义了使用 Vite 构建和部署 Vue 漫画查看器应用的步骤
+
+name: Vite Deployment
+
+# 触发条件：推送到 main 分支时自动部署
+on:
+  push:
+    branches:
+      - 001-vue-manga-refactor
+  workflow_dispatch:  # 允许手动触发
+
+# 权限设置
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 环境变量
+env:
+  NODE_VERSION: '20.x'
+  VITE_APP_API_BASE_URL: https://cdn-msp.jm18c-uoe.cc/media/photos
+  VITE_APP_PAGES_LIMIT: 100
+
+jobs:
+  # 构建作业
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 安装依赖
+        run: |
+          cd frontend
+          npm ci
+
+      - name: 构建应用
+        run: |
+          cd frontend
+          npm run build
+          # 验证构建产物
+          ls -la dist/
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v3
+        with:
+          name: vite-build-artifact
+          path: frontend/dist/
+          retention-days: 30
+
+  # 部署作业
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 下载构建产物
+        uses: actions/download-artifact@v3
+        with:
+          name: vite-build-artifact
+
+      - name: 配置 Pages
+        uses: actions/configure-pages@v3
+        with:
+          # 上传到 GitHub Pages
+          upload-server-url: ${{ steps.deployment.outputs.upload_url }}
+
+      - name: 上传部署
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./
+
+  # 发布作业（如果使用 GitHub Pages）
+  release:
+    if: github.ref == 'refs/heads/main'
+    needs: deploy
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: 发布到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+
+# 可选：Docker 部署配置
+deploy-docker:
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout 代码
+      uses: actions/checkout@v4
+
+    - name: 设置 Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: 安装依赖
+      run: |
+        cd frontend
+        npm ci
+
+    - name: 构建应用
+      run: |
+        cd frontend
+        npm run build
+
+    - name: 构建 Docker 镜像
+      run: |
+        docker build -t manga-viewer:${{ github.sha }} -f Dockerfile .
+
+    - name: 推送到容器仓库（可选）
+      if: github.ref == 'refs/heads/main'
+      env:
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      run: |
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        docker push manga-viewer:${{ github.sha }}
