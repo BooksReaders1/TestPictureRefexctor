@@ -27,6 +27,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
+const props = defineProps<Props>();
+
+const currentPage = ref(props.currentPage);
+const totalPages = ref(props.totalPages);
 interface Props {
   currentPage: number;
   totalPages: number;
@@ -43,13 +49,13 @@ const handleKeyDown = (event: KeyboardEvent) => {
   switch (event.key) {
     case 'ArrowLeft':
     case 'Home':
-      if (currentPage > 1) {
+      if (currentPage.value > 1) {
         emit('prev-chapter');
       }
       break;
     case 'ArrowRight':
     case 'End':
-      if (currentPage < totalPages) {
+      if (currentPage.value < totalPages.value) {
         emit('next-chapter');
       }
       break;

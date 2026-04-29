@@ -102,7 +102,7 @@
 
       <!-- Error Toast -->
       <ErrorToast
-        :message="error"
+        :message="error || ''"
         :visible="!!error"
         @dismiss="error = null"
       />
@@ -157,7 +157,7 @@ const isLoading = ref(false);
 const mangaIdInput = computed(() => mangaId.value);
 
 const pageInfo = computed(() => ({
-  currentPage,
+  currentPage: currentPage.value,
   totalPages: currentChapter.value?.page_count || 0
 }));
 

@@ -81,8 +81,8 @@ const toggleMenu = () => {
 const handleMenuClick = (item: string) => {
   switch (item) {
     case 'download':
-      if (currentChapter.value) {
-        emit('download', currentChapter.value);
+      if (props.currentChapter) {
+        emit('download', props.currentChapter);
       }
       break;
     case 'settings':

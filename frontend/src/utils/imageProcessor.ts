@@ -6,6 +6,7 @@ import { hashString, calculateSlicesFromHash } from './md5';
 interface ProcessedImageResult {
   canvas: HTMLCanvasElement;
   sliceCount: number;
+  processedAt: number;
 }
 
 // Process and reassemble image slices
@@ -80,7 +81,8 @@ export async function processAndReassembleImage(
 
     return {
       canvas: outputCanvas,
-      sliceCount
+      sliceCount,
+      processedAt: Date.now()
     };
   } catch (error) {
     console.error('Error processing image:', error);

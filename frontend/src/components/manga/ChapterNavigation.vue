@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref, toRefs } from 'vue';
 import type { Chapter } from '@/types';
 
 interface Props {
@@ -64,8 +64,6 @@ interface Emits {
 const emit = defineEmits<Emits>();
 
 const props = defineProps<Props>();
-const emit = defineEmits<Emits>();
-
 const { currentPage, totalPages } = toRefs(props.pageInfo || { currentPage: 1, totalPages: 0 });
 const direction = ref(props.direction || 'chapter');
 
@@ -105,29 +103,23 @@ const handleKeyDown = (event: KeyboardEvent) => {
 
 const canNavigate = computed(() => {
   if (direction.value === 'chapter') {
-    return hasPrevChapter || hasNextChapter;
+    return hasPrevChapter.value || hasNextChapter.value;
   } else {
-    const { currentPage, totalPages } = pageInfo.value;
+    const { currentPage, totalPages } = props.pageInfo || { currentPage: 1, totalPages: 0 };
     return currentPage > 1 || currentPage < totalPages;
   }
 });
 
 const hasPrevChapter = computed(() => {
-  const currentIndex = chapters.value.findIndex(c => c.id === currentChapter.value.id);
+  const currentIndex = props.chapters.findIndex(c => c.id === props.currentChapter.id);
   return currentIndex > 0;
 });
 
 const hasNextChapter = computed(() => {
-  const currentIndex = chapters.value.findIndex(c => c.id === currentChapter.value.id);
-  return currentIndex < chapters.value.length - 1;
+  const currentIndex = props.chapters.findIndex(c => c.id === props.currentChapter.id);
+  return currentIndex < props.chapters.length - 1;
 });
 
-const pageInfo = defineProps<Props>().pageInfo!;
-
-withDefaults(defineProps<Props>(), {
-  direction: 'chapter',
-  pageInfo: () => ({ currentPage: 1, totalPages: 0 })
-});
 </script>
 
 <style scoped>

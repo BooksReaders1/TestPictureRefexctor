@@ -1,7 +1,7 @@
 // Image processing composable
 import { ref } from 'vue';
 import type { Image } from '@/types';
-import { getCache, setCache } from '../utils/cache';
+import { getCache, setCache, clearCacheByPattern } from '../utils/cache';
 import { handleError } from '../utils/errorHandler';
 
 interface ImageProcessorOptions {
@@ -206,10 +206,14 @@ export function useImageProcessor(options: ImageProcessorOptions = {}) {
         }
 
         const cacheKey = `processed_${image.id}`;
-        const item = cache.get(cacheKey);
+        const item = getCache(cacheKey);
 
-        if (item && Date.now() - item.timestamp > maxAge) {
-          cache.delete(cacheKey);
+        if (item) {
+          // Check if cache item is expired
+          const age = Date.now() - (item as any).timestamp;
+          if (age > maxAge) {
+            clearCacheByPattern(cacheKey);
+          }
         }
       }
     }

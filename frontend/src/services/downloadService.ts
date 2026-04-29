@@ -61,7 +61,7 @@ class DownloadService {
 
   private async downloadImagesSequentially(
     images: Image[],
-    folder: JSZip,
+    folder: JSZip | null,
     onProgress: (progress: DownloadProgress) => void
   ): Promise<string[]> {
     const downloadedFiles: string[] = [];
@@ -94,7 +94,7 @@ class DownloadService {
           if (ctx) {
             ctx.drawImage(img, 0, 0);
             canvas.toBlob((blob) => {
-              if (blob) {
+              if (blob && folder) {
                 folder.file(fileName, blob);
                 downloadedFiles.push(fileName);
               }
