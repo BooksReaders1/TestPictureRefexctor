@@ -94,39 +94,3 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v2
 
-# 可选：Docker 部署配置
-deploy-docker:
-  runs-on: ubuntu-latest
-
-  steps:
-    - name: Checkout 代码
-      uses: actions/checkout@v4
-
-    - name: 设置 Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
-
-    - name: 安装依赖
-      run: |
-        cd frontend
-        npm ci
-
-    - name: 构建应用
-      run: |
-        cd frontend
-        npm run build
-
-    - name: 构建 Docker 镜像
-      run: |
-        docker build -t manga-viewer:${{ github.sha }} -f Dockerfile .
-
-    - name: 推送到容器仓库（可选）
-      if: github.ref == 'refs/heads/main'
-      env:
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      run: |
-        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        docker push manga-viewer:${{ github.sha }}
