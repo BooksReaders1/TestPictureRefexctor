@@ -22,19 +22,19 @@
 
 **目的**：项目初始化和基础结构
 
-- [ ] T001 在 frontend/ 中初始化 Vue 3 + TypeScript + Vite 项目
-- [ ] T002 在 frontend/package.json 中安装核心依赖（Vue Router、Pinia、JSZip、MD5）
-- [ ] T003 [P] 在 frontend/vite.config.ts 中配置 Vite
-- [ ] T004 [P] 在 frontend/tsconfig.json 中配置 TypeScript
-- [ ] T005 [P] 在 frontend/.eslintrc.cjs 中创建 ESLint 配置
-- [ ] T006 [P] 在 frontend/.prettierrc 中创建 Prettier 配置
-- [ ] T007 [P] 在 frontend/src/assets/css/theme.css 中创建 CSS 变量
-- [ ] T008 [P] 在 frontend/src/router/index.ts 中配置 Vue Router
-- [ ] T009 [P] 在 frontend/src/stores/index.ts 中配置 Pinia 状态管理
-- [ ] T010 在 frontend/src/components/common/ 中创建基础组件结构
-- [ ] T011 在 frontend/src/App.vue 中创建根组件
-- [ ] T012 在 frontend/index.html 中创建入口 HTML
-- [ ] T013 在 frontend/package.json 中创建包含依赖的 package.json
+- [X] T001 在 frontend/ 中初始化 Vue 3 + TypeScript + Vite 项目
+- [X] T002 在 frontend/package.json 中安装核心依赖（Vue Router、Pinia、JSZip、MD5）
+- [X] T003 [P] 在 frontend/vite.config.ts 中配置 Vite
+- [X] T004 [P] 在 frontend/tsconfig.json 中配置 TypeScript
+- [X] T005 [P] 在 frontend/.eslintrc.cjs 中创建 ESLint 配置
+- [X] T006 [P] 在 frontend/.prettierrc 中创建 Prettier 配置
+- [X] T007 [P] 在 frontend/src/assets/css/theme.css 中创建 CSS 变量
+- [X] T008 [P] 在 frontend/src/router/index.ts 中配置 Vue Router
+- [X] T009 [P] 在 frontend/src/stores/index.ts 中配置 Pinia 状态管理
+- [X] T010 在 frontend/src/components/common/ 中创建基础组件结构
+- [X] T011 在 frontend/src/App.vue 中创建根组件
+- [X] T012 在 frontend/index.html 中创建入口 HTML
+- [X] T013 在 frontend/package.json 中创建包含依赖的 package.json
 - [ ] T014 在 frontend/README.md 中创建文档
 
 ---
@@ -45,18 +45,18 @@
 
 **⚠️ 关键**：在任何用户故事工作开始之前，此阶段必须完成
 
-- [ ] T015 在 frontend/src/types/index.ts 中定义 TypeScript 接口（Manga、Chapter、Image、AppState、UserSettings）
-- [ ] T016 [P] 在 frontend/src/utils/errorHandler.ts 中实现错误处理工具
-- [ ] T017 [P] 在 frontend/src/utils/cache.ts 中实现缓存工具
-- [ ] T018 [P] 在 frontend/src/utils/token.ts 中实现令牌生成工具
-- [ ] T019 [P] 在 frontend/src/composables/useImageProcessor.ts 中实现图片处理组合式函数
-- [ ] T020 [P] 在 frontend/src/services/api.ts 中实现带有令牌认证的 API 服务
-- [ ] T021 [P] 在 frontend/src/stores/manga.ts 中创建 Pinia 漫画状态管理
-- [ ] T022 [P] 在 frontend/src/stores/app.ts 中创建 Pinia 应用状态管理
-- [ ] T023 [P] 在 frontend/src/stores/settings.ts 中创建 Pinia 设置状态管理
-- [ ] T024 在 frontend/src/components/common/LoadingSpinner.vue 中实现加载动画组件
-- [ ] T025 在 frontend/src/components/common/ErrorToast.vue 中实现错误提示组件
-- [ ] T026 在 frontend/src/utils/toast.ts 中实现 Toast 通知工具
+- [X] T015 在 frontend/src/types/index.ts 中定义 TypeScript 接口（Manga、Chapter、Image、AppState、UserSettings）
+- [X] T016 [P] 在 frontend/src/utils/errorHandler.ts 中实现错误处理工具
+- [X] T017 [P] 在 frontend/src/utils/cache.ts 中实现缓存工具
+- [X] T018 [P] 在 frontend/src/utils/token.ts 中实现令牌生成工具
+- [X] T019 [P] 在 frontend/src/composables/useImageProcessor.ts 中实现图片处理组合式函数
+- [X] T020 [P] 在 frontend/src/services/api.ts 中实现带有令牌认证的 API 服务
+- [X] T021 [P] 在 frontend/src/stores/manga.ts 中创建 Pinia 漫画状态管理
+- [X] T022 [P] 在 frontend/src/stores/app.ts 中创建 Pinia 应用状态管理
+- [X] T023 [P] 在 frontend/src/stores/settings.ts 中创建 Pinia 设置状态管理
+- [X] T024 在 frontend/src/components/common/LoadingSpinner.vue 中实现加载动画组件
+- [X] T025 在 frontend/src/components/common/ErrorToast.vue 中实现错误提示组件
+- [X] T026 在 frontend/src/utils/toast.ts 中实现 Toast 通知工具
 
 **检查点**：基础就绪 - 现在可以并行开始用户故事实现
 
@@ -70,20 +70,20 @@
 
 ### 用户故事 1 实现
 
-- [ ] T027 在 frontend/src/views/HomeView.vue 中创建主页视图
-- [ ] T028 在 frontend/src/components/manga/MangaSearch.vue 中创建漫画搜索组件
-- [ ] T029 在 frontend/src/components/manga/MangaInfo.vue 中创建漫画信息显示组件
-- [ ] T030 在 frontend/src/components/manga/ChapterList.vue 中创建章节列表组件
-- [ ] T031 在 frontend/src/components/manga/ChapterList.vue 中实现章节选择处理
-- [ ] T032 在 frontend/src/components/image/ImageContainer.vue 中创建图片容器组件
-- [ ] T033 在 frontend/src/components/manga/PageNavigation.vue 中创建页面导航组件
-- [ ] T034 在 frontend/src/components/manga/ChapterNavigation.vue 中创建章节导航组件
-- [ ] T035 在 frontend/src/views/MangaView.vue 中创建漫画详情页
-- [ ] T036 在 frontend/src/components/manga/ChapterNavigation.vue 中添加章节选择集成
-- [ ] T037 在 frontend/src/components/manga/PageNavigation.vue 中添加页面变化集成
-- [ ] T038 在 frontend/src/components/image/ImageContainer.vue 中实现图片懒加载
-- [ ] T039 在 frontend/src/components/image/ImageContainer.vue 中实现图片加载后的处理
-- [ ] T040 在 frontend/src/components/manga/PageNavigation.vue 中实现页面导航逻辑
+- [X] T027 在 frontend/src/views/HomeView.vue 中创建主页视图
+- [X] T028 在 frontend/src/components/manga/MangaSearch.vue 中创建漫画搜索组件
+- [X] T029 在 frontend/src/components/manga/MangaInfo.vue 中创建漫画信息显示组件
+- [X] T030 在 frontend/src/components/manga/ChapterList.vue 中创建章节列表组件
+- [X] T031 在 frontend/src/components/manga/ChapterList.vue 中实现章节选择处理
+- [X] T032 在 frontend/src/components/image/ImageContainer.vue 中创建图片容器组件
+- [X] T033 在 frontend/src/components/manga/PageNavigation.vue 中创建页面导航组件
+- [X] T034 在 frontend/src/components/manga/ChapterNavigation.vue 中创建章节导航组件
+- [X] T035 在 frontend/src/views/MangaView.vue 中创建漫画详情页
+- [X] T036 在 frontend/src/components/manga/ChapterNavigation.vue 中添加章节选择集成
+- [X] T037 在 frontend/src/components/manga/PageNavigation.vue 中添加页面变化集成
+- [X] T038 在 frontend/src/components/image/ImageContainer.vue 中实现图片懒加载
+- [X] T039 在 frontend/src/components/image/ImageContainer.vue 中实现图片加载后的处理
+- [X] T040 在 frontend/src/components/manga/PageNavigation.vue 中实现页面导航逻辑
 
 **检查点**：此时，用户故事 1 应该完全可用 - 用户可以输入漫画 ID，查看漫画信息和章节列表，并浏览页面
 
@@ -97,15 +97,15 @@
 
 ### 用户故事 2 实现
 
-- [ ] T041 在 frontend/src/components/common/FloatingMenu.vue 中创建悬浮菜单组件
-- [ ] T042 在 frontend/src/components/common/MenuDrawer.vue 中实现菜单抽屉
-- [ ] T043 在 frontend/src/components/common/FloatingMenu.vue 中实现拖拽功能
-- [ ] T044 在 frontend/src/components/common/MenuItem.vue 中创建菜单项组件
-- [ ] T045 在 frontend/src/components/common/MenuDrawer.vue 中实现点击外部关闭菜单
-- [ ] T046 在 frontend/src/components/common/MenuDrawer.vue 中实现菜单点击处理
-- [ ] T047 在 MangaView.vue 中集成悬浮菜单
-- [ ] T048 在 MenuDrawer.vue 中实现下载菜单项功能
-- [ ] T049 在 MenuDrawer.vue 中实现设置菜单项功能
+- [X] T041 在 frontend/src/components/common/FloatingMenu.vue 中创建悬浮菜单组件
+- [X] T042 在 frontend/src/components/common/MenuDrawer.vue 中实现菜单抽屉
+- [X] T043 在 frontend/src/components/common/FloatingMenu.vue 中实现拖拽功能
+- [X] T044 在 frontend/src/components/common/MenuItem.vue 中创建菜单项组件
+- [X] T045 在 frontend/src/components/common/MenuDrawer.vue 中实现点击外部关闭菜单
+- [X] T046 在 frontend/src/components/common/MenuDrawer.vue 中实现菜单点击处理
+- [X] T047 在 MangaView.vue 中集成悬浮菜单
+- [X] T048 在 MenuDrawer.vue 中实现下载菜单项功能
+- [X] T049 在 MenuDrawer.vue 中实现设置菜单项功能
 
 **检查点**：此时，用户故事 1 和用户故事 2 都应该独立可用，并具备完整的 UI 交互
 

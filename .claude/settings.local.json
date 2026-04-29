@@ -12,7 +12,10 @@
       "Bash(speckit *)",
       "Bash(npm uninstall *)",
       "Bash(.claude\\\\skills\\\\speckit-git-commit\\\\bin\\\\run.sh)",
-      "Bash(.claude/skills/speckit-tasks/scripts/powershell/check-prerequisites.ps1 *)"
+      "Bash(.claude/skills/speckit-tasks/scripts/powershell/check-prerequisites.ps1 *)",
+      "Bash(git commit *)",
+      "Bash(mkdir -p frontend)",
+      "Bash(npm init *)"
     ]
   }
 }
