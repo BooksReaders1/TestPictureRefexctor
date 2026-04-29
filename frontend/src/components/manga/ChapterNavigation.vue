@@ -1,9 +1,12 @@
 <template>
-  <div class="chapter-navigation" :class="direction">
+  <div class="chapter-navigation" :class="direction" role="navigation" :aria-label="direction === 'chapter' ? '章节导航' : '页面导航'">
     <button
       class="nav-btn prev"
       :disabled="!canNavigate"
       @click="$emit('prev-chapter')"
+      @keydown="handleKeyDown"
+      aria-label="上一章"
+      :aria-disabled="!canNavigate"
     >
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -12,7 +15,7 @@
       <span class="nav-label">{{ direction === 'chapter' ? '上一章' : '←' }}</span>
     </button>
 
-    <div class="nav-info">
+    <div class="nav-info" role="status" aria-live="polite">
       <span v-if="direction === 'chapter'" class="chapter-info">
         {{ currentChapter.title }} ({{ currentChapter.order }}章)
       </span>
@@ -25,6 +28,9 @@
       class="nav-btn next"
       :disabled="!canNavigate"
       @click="$emit('next-chapter')"
+      @keydown="handleKeyDown"
+      aria-label="下一章"
+      :aria-disabled="!canNavigate"
     >
       <span class="nav-label">{{ direction === 'chapter' ? '下一章' : '→' }}</span>
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -36,6 +42,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import type { Chapter } from '@/types';
 
 interface Props {
@@ -54,12 +61,38 @@ interface Emits {
   (e: 'next-chapter'): void;
 }
 
-withDefaults(defineProps<Props>(), {
-  direction: 'chapter',
-  pageInfo: () => ({ currentPage: 1, totalPages: 0 })
-});
+const emit = defineEmits<Emits>();
 
-defineEmits<Emits>();
+const handleKeyDown = (event: KeyboardEvent) => {
+  switch (event.key) {
+    case 'ArrowLeft':
+    case 'ArrowUp':
+      if (direction.value === 'page' && currentPage.value > 1) {
+        emit('prev-chapter');
+      }
+      break;
+    case 'ArrowRight':
+    case 'ArrowDown':
+      if (direction.value === 'chapter') {
+        emit('next-chapter');
+      } else if (currentPage.value < totalPages.value) {
+        emit('next-chapter');
+      }
+      break;
+    case 'ArrowHome':
+      if (direction.value === 'page' && currentPage.value > 1) {
+        emit('prev-chapter');
+      }
+      break;
+    case 'ArrowEnd':
+      if (direction.value === 'chapter') {
+        emit('next-chapter');
+      } else if (currentPage.value < totalPages.value) {
+        emit('next-chapter');
+      }
+      break;
+  }
+};
 
 const canNavigate = computed(() => {
   if (direction.value === 'chapter') {
@@ -80,7 +113,12 @@ const hasNextChapter = computed(() => {
   return currentIndex < chapters.value.length - 1;
 });
 
-const { currentPage, totalPages } = toRefs(defineProps<Props>().pageInfo!);
+const pageInfo = defineProps<Props>().pageInfo!;
+
+withDefaults(defineProps<Props>(), {
+  direction: 'chapter',
+  pageInfo: () => ({ currentPage: 1, totalPages: 0 })
+});
 </script>
 
 <style scoped>

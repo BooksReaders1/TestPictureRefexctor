@@ -104,12 +104,26 @@
         :visible="!!error"
         @dismiss="error = null"
       />
+
+      <!-- Download Progress -->
+      <DownloadProgress
+        :visible="showDownloadProgress"
+        :progress="downloadProgress"
+        :current-file="currentDownloadFile"
+        :total-files="currentChapter?.page_count || 0"
+        :error="isDownloading && downloadProgress === 100 ? '下载完成' : undefined"
+        @close="closeDownloadProgress"
+        @download="handleDownload"
+      />
     </div>
 
     <LoadingSpinner v-if="!manga && !isLoading" />
 
     <!-- Floating Menu -->
-    <FloatingMenu />
+    <FloatingMenu
+      :current-chapter="currentChapter"
+      @download="handleDownloadClick"
+    />
   </div>
 </template>
 
@@ -117,11 +131,14 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useMangaStore } from '@/stores/manga';
+import { useAppStore } from '@/stores/app';
 import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
 import ErrorToast from '@/components/common/ErrorToast.vue';
 import FloatingMenu from '@/components/common/FloatingMenu.vue';
+import DownloadProgress from '@/components/common/DownloadProgress.vue';
 import ChapterNavigation from '@/components/manga/ChapterNavigation.vue';
 import ImageContainer from '@/components/image/ImageContainer.vue';
+import downloadService from '@/services/downloadService';
 
 const router = useRouter();
 const route = useRoute();
@@ -232,6 +249,56 @@ const goToNextPage = () => {
 const handlePageChange = (page: number) => {
   currentPage.value = page;
   mangaStore.setCurrentPage(page);
+};
+
+// Download handlers
+const isDownloading = ref(false);
+const downloadProgress = ref(0);
+const currentDownloadFile = ref('');
+const showDownloadProgress = ref(false);
+
+const startDownload = async () => {
+  if (!currentChapter.value || isDownloading.value) return;
+
+  isDownloading.value = true;
+  showDownloadProgress.value = true;
+  downloadProgress.value = 0;
+
+  try {
+    downloadService.setProgressCallback((progress) => {
+      downloadProgress.value = progress.progress;
+      currentDownloadFile.value = progress.currentFileName;
+    });
+
+    await downloadService.downloadChapterAsZip(
+      currentChapter.value,
+      mangaId.value,
+      currentChapter.value.title
+    );
+  } catch (error) {
+    console.error('Download failed:', error);
+  } finally {
+    isDownloading.value = false;
+    downloadService.clearProgressCallbacks();
+  }
+};
+
+const handleDownloadClick = async (chapter?: any) => {
+  const targetChapter = chapter || currentChapter.value;
+  if (targetChapter) {
+    await startDownload();
+  }
+};
+
+const closeDownloadProgress = () => {
+  showDownloadProgress.value = false;
+};
+
+const handleDownload = () => {
+  // Can be used to resume or restart download
+  if (isDownloading.value) {
+    isDownloading.value = false;
+  }
 };
 
 const goBack = () => {

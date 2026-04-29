@@ -119,15 +119,15 @@
 
 ### 用户故事 3 实现
 
-- [ ] T050 在 frontend/src/composables/useImageProcessor.ts 中优化图片处理逻辑
-- [ ] T051 在 frontend/src/utils/md5.ts 中实现用于切片参数的 MD5 哈希计算
-- [ ] T052 在 frontend/src/utils/imageProcessor.ts 中实现图片切片和重组
-- [ ] T053 在 frontend/src/utils/imageProcessor.ts 中实现基于 Canvas 的图片处理
-- [ ] T054 在 frontend/src/composables/useImageProcessor.ts 中实现图片加载失败的重试机制
-- [ ] T055 在 frontend/src/composables/useImageProcessor.ts 中实现图片尺寸验证和处理
-- [ ] T056 在 frontend/src/components/image/ImageContainer.vue 中实现响应式图片缩放
-- [ ] T057 在 frontend/src/composables/useImageProcessor.ts 中实现图片预加载
-- [ ] T058 在 frontend/src/services/api.ts 中实现并发请求控制
+- [X] T050 在 frontend/src/composables/useImageProcessor.ts 中优化图片处理逻辑
+- [X] T051 在 frontend/src/utils/md5.ts 中实现用于切片参数的 MD5 哈希计算
+- [X] T052 在 frontend/src/utils/imageProcessor.ts 中实现图片切片和重组
+- [X] T053 在 frontend/src/utils/imageProcessor.ts 中实现基于 Canvas 的图片处理
+- [X] T054 在 frontend/src/composables/useImageProcessor.ts 中实现图片加载失败的重试机制
+- [X] T055 在 frontend/src/composables/useImageProcessor.ts 中实现图片尺寸验证和处理
+- [X] T056 在 frontend/src/components/image/ImageContainer.vue 中实现响应式图片缩放
+- [X] T057 在 frontend/src/composables/useImageProcessor.ts 中实现图片预加载
+- [X] T058 在 frontend/src/services/api.ts 中实现并发请求控制
 
 **检查点**：所有图片处理功能正常工作，包含适当的错误处理和性能优化
 
@@ -141,13 +141,13 @@
 
 ### 用户故事 4 实现
 
-- [ ] T059 在 frontend/src/services/downloadService.ts 中创建下载服务
-- [ ] T060 在 frontend/src/services/downloadService.ts 中实现 ZIP 文件创建
-- [ ] T061 在 frontend/src/services/downloadService.ts 中实现下载进度跟踪
-- [ ] T062 在 frontend/src/services/downloadService.ts 中实现 iOS/Safari 下载处理
-- [ ] T063 在 MenuDrawer.vue 中添加下载按钮
-- [ ] T064 在 frontend/src/components/common/DownloadProgress.vue 中创建下载进度对话框
-- [ ] T065 在 store actions 中集成下载服务
+- [X] T059 在 frontend/src/services/downloadService.ts 中创建下载服务
+- [X] T060 在 frontend/src/services/downloadService.ts 中实现 ZIP 文件创建
+- [X] T061 在 frontend/src/services/downloadService.ts 中实现下载进度跟踪
+- [X] T062 在 frontend/src/services/downloadService.ts 中实现 iOS/Safari 下载处理
+- [X] T063 在 MenuDrawer.vue 中添加下载按钮
+- [X] T064 在 frontend/src/components/common/DownloadProgress.vue 中创建下载进度对话框
+- [X] T065 在 store actions 中集成下载服务
 
 **检查点**：所有下载功能正常工作，包含进度反馈和跨浏览器支持
 
@@ -161,14 +161,14 @@
 
 ### 用户故事 5 实现
 
-- [ ] T066 在 frontend/src/assets/css/theme.css 中实现响应式 CSS
-- [ ] T067 在 frontend/src/assets/css/theme.css 中添加移动端断点
-- [ ] T068 在 frontend/src/components/manga/ChapterList.vue 中优化移动端章节列表
-- [ ] T069 在 frontend/src/components/image/ImageContainer.vue 中优化移动端图片容器
-- [ ] T070 在 frontend/src/components/common/FloatingMenu.vue 中实现触摸事件处理
-- [ ] T071 在 frontend/src/components/manga/ChapterNavigation.vue 中优化移动端导航
-- [ ] T072 在 MangaView.vue 中添加响应式调整
-- [ ] T073 在移动设备上测试并根据样式进行调整
+- [X] T066 在 frontend/src/assets/css/theme.css 中实现响应式 CSS
+- [X] T067 在 frontend/src/assets/css/theme.css 中添加移动端断点
+- [X] T068 在 frontend/src/components/manga/ChapterList.vue 中优化移动端章节列表
+- [X] T069 在 frontend/src/components/image/ImageContainer.vue 中优化移动端图片容器
+- [X] T070 在 frontend/src/components/common/FloatingMenu.vue 中实现触摸事件处理
+- [X] T071 在 frontend/src/components/manga/ChapterNavigation.vue 中优化移动端导航
+- [X] T072 在 MangaView.vue 中添加响应式调整
+- [X] T073 在移动设备上测试并根据样式进行调整
 
 **检查点**：所有响应式设计功能在各个设备上都能正常工作
 
@@ -178,19 +178,19 @@
 
 **目的**：影响多个用户故事的改进
 
-- [ ] T074 [P] 在 frontend/src/components/manga/PageNavigation.vue 中添加键盘导航支持
-- [ ] T075 [P] 在 frontend/src/components/manga/ChapterNavigation.vue 中添加章节键盘导航
-- [ ] T076 在 frontend/src/components/ 中添加 ARIA 属性以提升无障碍访问
-- [ ] T077 [P] 在 frontend/src/services/api.ts 中通过缓存优化图片加载性能
-- [ ] T078 [P] 在 frontend/src/composables/useImageProcessor.ts 中为大图片优化内存管理
-- [ ] T079 为所有异步操作添加加载状态
-- [ ] T080 在 frontend/src/App.vue 中添加组件级错误边界
-- [ ] T081 在 frontend/src/router/index.ts 中实现路由守卫和认证
+- [X] T074 [P] 在 frontend/src/components/manga/PageNavigation.vue 中添加键盘导航支持
+- [X] T075 [P] 在 frontend/src/components/manga/ChapterNavigation.vue 中添加章节键盘导航
+- [X] T076 在 frontend/src/components/ 中添加 ARIA 属性以提升无障碍访问
+- [X] T077 [P] 在 frontend/src/services/api.ts 中通过缓存优化图片加载性能
+- [X] T078 [P] 在 frontend/src/composables/useImageProcessor.ts 中为大图片优化内存管理
+- [X] T079 为所有异步操作添加加载状态
+- [X] T080 在 frontend/src/App.vue 中添加组件级错误边界
+- [X] T081 在 frontend/src/router/index.ts 中实现路由守卫和认证
 - [ ] T082 [P] 在 frontend/tests/unit/ 中添加工具函数的单元测试
 - [ ] T083 [P] 在 frontend/tests/unit/ 中添加组合式函数的单元测试
 - [ ] T084 在 frontend/tests/components/ 中添加关键组件的组件测试
-- [ ] T085 运行 quickstart.md 验证检查清单
-- [ ] T086 在 frontend/ 中构建生产版本并测试
+- [X] T085 运行 quickstart.md 验证检查清单
+- [X] T086 在 frontend/ 中构建生产版本并测试
 
 ---
 

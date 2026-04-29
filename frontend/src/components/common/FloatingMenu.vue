@@ -12,31 +12,41 @@
       </svg>
     </div>
 
-    <div v-if="visible" class="menu-drawer">
+    <div v-if="visible" class="menu-drawer" role="dialog" aria-label="主菜单">
       <div class="menu-header">
         <span class="menu-title">菜单</span>
-        <button class="close-btn" @click="toggleMenu">×</button>
+        <button class="close-btn" @click="toggleMenu" aria-label="关闭菜单">×</button>
       </div>
       <div class="menu-items">
         <div
+          v-if="currentChapter"
           class="menu-item"
+          role="menuitem"
+          tabindex="0"
           @click="handleMenuClick('download')"
+          @keydown="handleKeyDown"
         >
-          <span class="item-icon">⬇</span>
-          <span class="item-text">下载</span>
+          <span class="item-icon" aria-hidden="true">⬇</span>
+          <span class="item-text">下载章节</span>
         </div>
         <div
           class="menu-item"
+          role="menuitem"
+          tabindex="0"
           @click="handleMenuClick('settings')"
+          @keydown="handleKeyDown"
         >
-          <span class="item-icon">⚙</span>
+          <span class="item-icon" aria-hidden="true">⚙</span>
           <span class="item-text">设置</span>
         </div>
         <div
           class="menu-item"
+          role="menuitem"
+          tabindex="0"
           @click="handleMenuClick('home')"
+          @keydown="handleKeyDown"
         >
-          <span class="item-icon">🏠</span>
+          <span class="item-icon" aria-hidden="true">🏠</span>
           <span class="item-text">返回首页</span>
         </div>
       </div>
@@ -47,6 +57,17 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
+
+interface Props {
+  currentChapter?: any;
+}
+
+interface Emits {
+  (e: 'download', chapter: any): void;
+}
+
+const props = defineProps<Props>();
+const emit = defineEmits<Emits>();
 
 const router = useRouter();
 
@@ -60,7 +81,7 @@ const toggleMenu = () => {
 const handleMenuClick = (item: string) => {
   switch (item) {
     case 'download':
-      console.log('Download clicked');
+      emit('download', currentChapter.value);
       break;
     case 'settings':
       console.log('Settings clicked');
@@ -70,6 +91,15 @@ const handleMenuClick = (item: string) => {
       break;
   }
   toggleMenu();
+};
+
+const handleKeyDown = (event: KeyboardEvent) => {
+  if (event.key === 'Enter' || event.key === ' ') {
+    const target = event.currentTarget as HTMLElement;
+    if (target) {
+      target.click();
+    }
+  }
 };
 
 // Close menu when clicking outside

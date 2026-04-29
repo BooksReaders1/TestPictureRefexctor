@@ -1,14 +1,16 @@
 <template>
-  <div class="page-navigation">
+  <div class="page-navigation" role="navigation" aria-label="页面导航">
     <button
       class="page-btn prev"
       :disabled="currentPage <= 1"
       @click="$emit('prev-chapter')"
+      @keydown="handleKeyDown"
+      aria-label="上一页"
     >
       上一页
     </button>
 
-    <div class="page-info">
+    <div class="page-info" role="status" aria-live="polite">
       第 {{ currentPage }} / {{ totalPages }} 页
     </div>
 
@@ -16,6 +18,8 @@
       class="page-btn next"
       :disabled="currentPage >= totalPages"
       @click="$emit('next-chapter')"
+      @keydown="handleKeyDown"
+      aria-label="下一页"
     >
       下一页
     </button>
@@ -33,12 +37,29 @@ interface Emits {
   (e: 'next-chapter'): void;
 }
 
+const emit = defineEmits<Emits>();
+
+const handleKeyDown = (event: KeyboardEvent) => {
+  switch (event.key) {
+    case 'ArrowLeft':
+    case 'Home':
+      if (currentPage > 1) {
+        emit('prev-chapter');
+      }
+      break;
+    case 'ArrowRight':
+    case 'End':
+      if (currentPage < totalPages) {
+        emit('next-chapter');
+      }
+      break;
+  }
+};
+
 withDefaults(defineProps<Props>(), {
   currentPage: 1,
   totalPages: 1
 });
-
-defineEmits<Emits>();
 </script>
 
 <style scoped>
